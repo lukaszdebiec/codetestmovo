@@ -1,0 +1,30 @@
+<div class="card text-center">
+    <div class="card-header">
+     All products
+    </div>
+    <div class="card-body">
+      <div class="row">
+          <div class="checkbox col-sm-3">
+              <label><input type="checkbox" [checked]="showVat" value="" (click)="showStatus()"> Show VAT?</label>
+            </div>
+          <div class="checkbox col-sm-3">
+              <label><input type="checkbox" disabled> Free shipping</label>
+            </div>
+          <div class="checkbox col-sm-3">
+              <label><input type="checkbox" disabled> asdasd</label>
+            </div>
+          <div class="checkbox col-sm-3">
+              <label><input type="checkbox" disabled> asdasd</label>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="products?.length > 0;else noProducts">
+    <div  *ngFor="let product of products">
+      <app-product [product]="product" [showVat]="showVat"></app-product>
+    </div>
+  </div>
+  
+  <ng-template #noProducts>
+    <app-spinner></app-spinner>
+  </ng-template>

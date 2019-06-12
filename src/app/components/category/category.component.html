@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Categories</h5>
+    <ul class="list-unstyled">
+      <li>
+        <a
+          [routerLink]="['']"
+          routerLinkActive="router-link-active"
+          class="nav-link"
+          ><i class="fa fa-list"></i>
+          All products</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['electronics']"
+          routerLinkActive="router-link-active"
+          class="nav-link"
+          ><i class="fa fa-laptop"></i> Electronics</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['sport']"
+          routerLinkActive="router-link-active"
+          class="nav-link" 
+          ><i class="fa fa-futbol-o"></i> Sport</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['toys']"
+          routerLinkActive="router-link-active"
+          class="nav-link" 
+          ><i class="fa fa-space-shuttle"></i> Toys</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['']"
+          routerLinkActive="router-link-active"
+          class="nav-link" placement="right"
+          ngbPopover="Only 'all products', 'electronics', 'sport' and 'toys are available'" popoverTitle="Category disabled!"
+          ><i class="fa fa-home" ></i> Home & Garden</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['']"
+          routerLinkActive="router-link-inactive"
+          class="nav-link" placement="right"
+          ngbPopover="Only 'all products', 'electronics', 'sport' and 'toys are available'" popoverTitle="Category disabled!"
+          ><i class="fa fa-diamond"></i> Jewerly</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['']"
+          routerLinkActive="router-link-active"
+          class="nav-link" placement="right"
+          ngbPopover="Only 'all products', 'electronics', 'sport' and 'toys are available'" popoverTitle="Category disabled!"
+          ><i class="fa fa-camera-retro"></i> Photography</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>

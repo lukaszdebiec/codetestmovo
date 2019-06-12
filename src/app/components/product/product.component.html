@@ -1,0 +1,208 @@
+<div class="card">
+  <div class="row">
+    <div class="col-sm-4">
+      <img
+        class="card-img-top"
+        height="200"
+        width="200"
+        src="{{ product.photoURL }}"
+        alt="Card image cap"
+      />
+    </div>
+    <div class="card-body col-sm-6">
+      <p class="card-title lead">{{ product.name }}</p>
+      <p class="card-title" *ngIf="this.showVat">
+        <i class="fa fa-usd" aria-hidden="true"></i
+        ><strong> {{ product.price * 1.23 | number: "1.1-2" }} </strong>
+        <a><em>(Including 23 % VAT)</em></a>
+      </p>
+      <p class="card-title" *ngIf="!this.showVat">
+        <i class="fa fa-usd" aria-hidden="true"></i>
+        {{ product.price | number: "1.1-2" }}
+      </p>
+      <p class="card-title">Article number: {{ product.ean }}</p>
+      <hr />
+      <h6>{{ product.description }}</h6>
+    </div>
+    <div (click)="openEditMode(editcontent)" class="col-sm-1">
+      <i class="fa fa-pencil fa-lg" style="cursor:pointer"></i>
+    </div>
+    <div (click)="open(content)" class="col-sm-1">
+      <i class="fa fa-minus-circle fa-lg" style="cursor:pointer"></i>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title justify-content-center" id="modal-basic-title">
+      Delete product?
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="modal.close('Save click')">
+      <div class="form-group">
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-sm-6">
+              <button
+                (click)="deleteProduct($event, product)"
+                type="submit"
+                class="btn btn-danger justify-content-center"
+              >
+                Ok
+              </button>
+            </div>
+            <div class="col-sm-6">
+              <button
+                type="submit"
+                class="btn btn-success justify-content-center"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #editcontent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title justify-content-center" id="modal-basic-title">
+      Update product
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="updateProduct(product); modal.close('Save click')">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="product.name"
+          name="name"
+          required
+          #name="ngModel"
+        />
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="alert alert-danger"
+        >
+          Name of the product is required
+        </div>
+        <label for="category">Category of the product</label>
+        <select
+          class="form-control"
+          name="category"
+          [(ngModel)]="product.category"
+          required
+          #category="ngModel"
+        >
+          <option disabled> -- select an option -- </option>
+          <option *ngFor="let category of categories" [value]="category">{{
+            category
+          }}</option>
+        </select>
+        <div
+          *ngIf="category.invalid && (category.dirty || category.touched)"
+          class="alert alert-danger"
+        >
+          Category of the product is required
+        </div>
+        <label for="ean">EAN number</label>
+        <input
+          type="number"
+          class="form-control"
+          name="ean"
+          [(ngModel)]="product.ean"
+          required
+          #ean="ngModel"
+        />
+        <div
+          *ngIf="ean.invalid && (ean.dirty || ean.touched)"
+          class="alert alert-danger"
+        >
+          EAN of the product is required
+        </div>
+        <label for="name">Price NET(without tax)</label>
+        <input
+          type="number"
+          class="form-control"
+          name="price"
+          [(ngModel)]="product.price"
+          required
+          #price="ngModel"
+        />
+        <div
+          *ngIf="price.invalid && (price.dirty || price.touched)"
+          class="alert alert-danger"
+        >
+          Price of the product is required
+        </div>
+        <label for="name">Description of the product</label>
+        <input
+          type="text"
+          class="form-control"
+          name="description"
+          [(ngModel)]="product.description"
+          required
+          #description="ngModel"
+        />
+        <div
+          *ngIf="description.invalid && (description.dirty || price.touched)"
+          class="alert alert-danger"
+        >
+          Description of the product is required
+        </div>
+        <label for="name">Photo URL of the product</label>
+        <input
+          type="text"
+          class="form-control"
+          name="photoURL"
+          [(ngModel)]="product.photoURL"
+          required
+          #description="ngModel"
+        />
+        <div
+          *ngIf="description.invalid && (description.dirty || price.touched)"
+          class="alert alert-danger"
+        >
+          Photo URL is required
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn btn-success justify-content-center"
+          [disabled]="
+            name.invalid ||
+            category.invalid ||
+            ean.invalid ||
+            price.invalid ||
+            description.invalid
+          "
+        >
+          Update the product!
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

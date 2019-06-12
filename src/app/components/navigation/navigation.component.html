@@ -1,0 +1,166 @@
+<div class="card text-center">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div
+        class="col-sm-2 justify-content-center"
+        style="cursor:pointer"
+        [routerLink]="['']"
+      >
+        <img src="../../../assets/super.png" alt="super" />
+      </div>
+      <div class="col-sm-4">
+        <form>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" />
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-8">
+            <a class="nav-link" style="cursor:pointer" (click)="open(content)"
+              >Hello Admin, add a product? <i class="fa fa-plus fa-lg"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title justify-content-center" id="modal-basic-title">
+        Add product
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit(); modal.close('Save click')">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="product.name"
+            name="name"
+            required
+            #name="ngModel"
+          />
+          <div
+            *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert alert-danger"
+          >
+            Name of the product is required
+          </div>
+          <label for="category">Category of the product</label>
+          <select
+            class="form-control"
+            name="category"
+            [(ngModel)]="product.category"
+            required
+            #category="ngModel"
+          >
+            <option disabled> -- select an option -- </option>
+            <option *ngFor="let category of categories" [value]="category">{{
+              category
+            }}</option>
+          </select>
+          <div
+            *ngIf="category.invalid && (category.dirty || category.touched)"
+            class="alert alert-danger"
+          >
+            Category of the product is required
+          </div>
+          <label for="ean">EAN number</label>
+          <input
+            type="number"
+            class="form-control"
+            name="ean"
+            [(ngModel)]="product.ean"
+            required
+            #ean="ngModel"
+          />
+          <div
+            *ngIf="ean.invalid && (ean.dirty || ean.touched)"
+            class="alert alert-danger"
+          >
+            EAN of the product is required
+          </div>
+          <label for="name">Price NET(without tax)</label>
+          <input
+            type="number"
+            class="form-control"
+            name="price"
+            [(ngModel)]="product.price"
+            required
+            #price="ngModel"
+          />
+          <div
+            *ngIf="price.invalid && (price.dirty || price.touched)"
+            class="alert alert-danger"
+          >
+            Price of the product is required
+          </div>
+          <label for="name">Description of the product</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            [(ngModel)]="product.description"
+            required
+            #description="ngModel"
+          />
+          <div
+            *ngIf="description.invalid && (description.dirty || price.touched)"
+            class="alert alert-danger"
+          >
+            Description of the product is required
+          </div>
+          <label for="name">Photo URL of the product</label>
+          <input
+            type="text"
+            class="form-control"
+            name="photoURL"
+            [(ngModel)]="product.photoURL"
+            required
+            #description="ngModel"
+          />
+          <div
+            *ngIf="description.invalid && (description.dirty || price.touched)"
+            class="alert alert-danger"
+          >
+            Photo URL is required
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-success justify-content-center"
+            [disabled]="
+              name.invalid ||
+              category.invalid ||
+              ean.invalid ||
+              price.invalid ||
+              description.invalid
+            "
+          >
+            Add the product!
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>
